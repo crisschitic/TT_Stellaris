@@ -15,7 +15,7 @@ echo "Will Install to $TARGETDIR"
 # create the target directory
 if [ -d $TARGETDIR ]
 then 
-	echo "The target directory exists already - please specify a non-existing place"
+	echo "The target directory exists already..."
 fi
 mkdir -p $TARGETDIR
 
@@ -57,11 +57,54 @@ fi
 
 
 # Extract eclipse
+if [ -d $TARGETDIR/eclipse ]
+then 
+	echo "eclipse directory exists already - skipping eclipse..."
+else
 tar xzf download/eclipse_juno_svn_arm_gdb_64.tar.gz -C $TARGETDIR
+fi
 
-tar xf download/arm-2011.09-69-arm-none-eabi-i686-pc-linux-gnu.tar.bz2 -C $TARGETDIR
+if [ -d $TARGETDIR/arm-2011.09 ]
+then 
+	echo "arm toolchain directory exists already - skipping arm toolchain..."
+else
+	tar xf download/arm-2011.09-69-arm-none-eabi-i686-pc-linux-gnu.tar.bz2 -C $TARGETDIR
+fi
 
-unzip download/SW-LM3S-8264.exe -d $TARGETDIR/stellarisware
+if [ -d $TARGETDIR/stellarisware ]
+then 
+	echo "stellarisware directory exists already - skipping stellarisware..."
+else
+	unzip download/SW-LM3S-8264.exe -d $TARGETDIR/stellarisware
+fi
+
+
+echo 'installfolder='$TARGETDIR > $TARGETDIR/start_eclipse.sh
+echo 'export STELLARISWARE_ROOT=$installfolder/stellarisware' >> $TARGETDIR/start_eclipse.sh
+echo 'export ARMTOOLCHAIN_ROOT=$installfolder/arm-2011.09' >> $TARGETDIR/start_eclipse.sh
+echo  >> $TARGETDIR/start_eclipse.sh
+echo './eclipse/eclipse --no-splash' >> $TARGETDIR/start_eclipse.sh
+
+chmod +x $TARGETDIR/start_eclipse.sh
+
+
+#currentfolder=~/testTemplates/stellaris
+#
+#export STELLARISWARE_ROOT=$currentfolder/stellarisware
+#export ARMTOOLCHAIN_ROOT=$currentfolder/arm-2011.09
+
+#export PATH=$ARMTOOLCHAIN_ROOT/bin:$PATH
+
+#echo " The following variables have been set up =================="
+#echo "PATH = " $PATH
+#echo "ARMTOOLCHAIN_ROOT = " $ARMTOOLCHAIN_ROOT
+#echo "STELLARISWARE_ROOT = " $STELLARISWARE_ROOT
+#echo " ==========================================================="
+
+#arm-none-eabi-gcc --version
+
+#./eclipse/eclipse --no-splash'
+
 
 
 
