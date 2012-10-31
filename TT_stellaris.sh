@@ -82,6 +82,7 @@ fi
 echo 'installfolder='$TARGETDIR > $TARGETDIR/start_eclipse.sh
 echo 'export STELLARISWARE_ROOT=$installfolder/stellarisware' >> $TARGETDIR/start_eclipse.sh
 echo 'export ARMTOOLCHAIN_ROOT=$installfolder/arm-2011.09' >> $TARGETDIR/start_eclipse.sh
+echo 'export PATH=$ARMTOOLCHAIN_ROOT/bin:$PATH' >> $TARGETDIR/start_eclipse.sh
 echo  >> $TARGETDIR/start_eclipse.sh
 echo './eclipse/eclipse --no-splash' >> $TARGETDIR/start_eclipse.sh
 
